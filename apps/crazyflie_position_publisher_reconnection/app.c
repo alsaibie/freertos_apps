@@ -38,7 +38,7 @@ void appMain(){
         // ####################### RADIO INIT #######################
 
         int radio_connected = logGetVarId("radio", "isConnected");
-
+        uint8_t i = 0;
         while(!logGetUint(radio_connected)) vTaskDelay(100);
         DEBUG_PRINT("Radio connected\n");
 
