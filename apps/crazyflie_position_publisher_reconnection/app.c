@@ -38,7 +38,6 @@ void appMain(){
         // ####################### RADIO INIT #######################
 
         int radio_connected = logGetVarId("radio", "isConnected");
-        uint8_t i = 0;
         while(!logGetUint(radio_connected)) vTaskDelay(100);
         DEBUG_PRINT("Radio connected\n");
 
@@ -144,12 +143,6 @@ void appMain(){
 
         // ####################### MAIN LOOP #######################
 
-        // static P2PPacket pk;
-        // pk.port = 0;
-        // pk.size = 11;
-        // memcpy(pk.data, "Hello World", 11);
-        // radiolinkSendP2PPacketBroadcast(&pk);
-
         radiolinkSetPowerDbm(-50);
 
         while(logGetUint(radio_connected)){
@@ -160,11 +153,6 @@ void appMain(){
             odom.x     = logGetFloat(Xid);
             odom.y     = logGetFloat(Yid);
             odom.z     = logGetFloat(Zid);
-
-            // Debug
-            // int radio_rssi = logGetVarId("radio", "rssi");
-            // odom.x     = logGetFloat(radio_rssi);
-            // odom.y     = xPortGetFreeHeapSize();
 
             rc = rcl_publish( &pub_attitude, (const void *) &pose, NULL);
             RCSOFTCHECK()
